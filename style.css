@@ -1,0 +1,14 @@
+main {
+    background-color: rgb(23, 23, 23);
+    width: 320px;
+    /* height: 500px; */
+    color: whitesmoke;
+}
+
+.button, .reload{
+    /* background-color: beige; */
+    cursor: pointer;
+}
+.button i {
+    color: beige;
+}

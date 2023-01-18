@@ -1,0 +1,11 @@
+{
+    "name": "Fenix handler",
+    "version": "1.0.0",
+    "description": "For fenix, you know.",
+    "manifest_version": 3,
+    "author": "Alejandro Colmenero Moreno",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Fenix handler"
+    }
+}
