@@ -18,88 +18,42 @@
 
 <body>
 
-    <main>
+    <main class="position-relative bg-dark">
 
-        <div class="container text-center py-3">
+        <div 
+            class="position-absolute w-100 h-100 bg-dark d-flex justify-content-center align-items-center d-none"
+            id="pesao"
+        >
+            <div class="text-center">
+                <h2 class="fs-4">¿Has ticado en Fenix?</h2>
+                <button class="btn btn-warning px-5 py-0" id="pasaosi">Sí</button>
+            </div>
+        </div>
 
-            <div class="row mb-1">
-                <div class="col-2 d-flex">
-                    <div class="m-0 reload me-1" data-id="SMARTDATA">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </div>
-                    <div class="m-0 button" data-id="SMARTDATA" id="icon-SMARTDATA">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <p class="m-0">SMARTDATA</p>
-                </div>
-                <div class="col-5" id="SMARTDATA">
-                    0h 0m 0s
-                </div>
+        <div class="container-fluid text-center p-0 pb-2">
+
+            <div id="header" class="d-flex justify-content-between p-2">
+                <h1 class="fs-4 m-0">G-TRACKER</h1>
             </div>
-            <div class="row mb-1">
-                <div class="col-2 d-flex">
-                    <div class="m-0 reload me-1" data-id="IGN-SOLAR">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </div>
-                    <div class="m-0 button" data-id="IGN-SOLAR" id="icon-SOLAR">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <p class="m-0">IGN SOLAR</p>
-                </div>
-                <div class="col-5" id="IGN-SOLAR">
-                    0h 0m 0s
-                </div>
+
+            <div id="contratos" class="p-2">
+
             </div>
-            <div class="row mb-1">
-                <div class="col-2 d-flex">
-                    <div class="m-0 reload me-1" data-id="CONTRATACIÓN">
-                        <i class="bi bi-arrow-clockwise"></i>
+
+            <div class="">
+                <div id="new-contrato">
+                    <div class="row w-100 m-0">
+                        <div class="col-2 ps-2 pe-1 text-center">
+                            <div class="w-100">
+                                <button class="btn p-0 w-100" id="new-contrato-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="col-10 px-2">
+                            <div class="">
+                                <input type="text" class="form-control py-0" id="new-contrato-input" value="Contratacion">
+                            </div>
+                        </div>
                     </div>
-                    <div class="m-0 button" data-id="CONTRATACIÓN" id="icon-CONTRATACIÓN">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <p class="m-0">CONTRATACIÓN</p>
-                </div>
-                <div class="col-5" id="CONTRATACIÓN">
-                    0h 0m 0s
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-2 d-flex">
-                    <div class="m-0 reload me-1" data-id="AGROINTEL">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </div>
-                    <div class="m-0 button" data-id="AGROINTEL" id="icon-AGROINTEL">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <p class="m-0">AGROINTEL</p>
-                </div>
-                <div class="col-5" id="AGROINTEL">
-                    0h 0m 0s
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-2 d-flex">
-                    <div class="m-0 reload me-1" data-id="CLOUDIA">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </div>
-                    <div class="m-0 button" data-id="CLOUDIA" id="icon-CLOUDIA">
-                        <i class="bi bi-play-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <p class="m-0">CLOUDIA</p>
-                </div>
-                <div class="col-5" id="CLOUDIA">
-                    0h 0m 0s
                 </div>
             </div>
 

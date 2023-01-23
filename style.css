@@ -1,14 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Solitreo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+@import url('https://fonts.cdnfonts.com/css/proggy-clean');
+
+h2 {
+    font-family: 'Solitreo', cursive;
+}
+
+* {
+    font-family: 'Kanit', sans-serif;
+}
+
 main {
-    background-color: rgb(23, 23, 23);
-    width: 320px;
+    /* background-color: rgb(23, 23, 23); */
+    width: 400px;
     /* height: 500px; */
     color: whitesmoke;
 }
 
-.button, .reload{
+.w-33 {
     /* background-color: beige; */
     cursor: pointer;
+    width: 33%;
 }
+
 .button i {
-    color: beige;
+    /* color: beige; */
+    /* color: #eed167; */
+    /* color: #c1077a; */
+    color: #e9e4e7;
+}
+
+* {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+#header {
+    background-color: #c1077a;
+    /* background-color: rgb(17, 17, 17); */
+}
+
+.timer {
+    font-family: 'ProggyCleanTTSZBP', sans-serif !important;
+    font-size: 1.2rem;
+}
+
+#new-contrato-input {
+    margin-top: 1px;
+}
+
+#new-contrato-btn {
+    /* background-color: rgb(17, 17, 17); */
+    background-color: #c1077a;
+    color: whitesmoke;
+}
+
+.kill {
+    color: rgb(255, 115, 145);
 }
