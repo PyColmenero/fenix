@@ -1,23 +1,21 @@
 let data = [];
-// let data = {
-//     "SMARTDATA": 0,
-//     "IGN-SOLAR": 0,
-//     "CONTRATACIÓN": 0,
-//     "AGROINTEL": 0,
-//     "CLOUDIA": 0
-// }
 
 let counting = false;
 let start_time = undefined;
 let final_time = undefined;
 let selected = undefined;
+let show_add = false;
+let add_contrato_str = "";
 
 const pasaosi = document.getElementById("pasaosi");
 const pesao = document.getElementById("pesao");
 const showms = document.getElementById("showms");
 const contratos = document.getElementById("contratos");
+const show_ms_btn = document.getElementById("toggle-show-ms");
 
 let show_ms = false;
+
+let show_e = false;
 
 function msToTime(s) {
     var ms = s % 1000;
@@ -29,7 +27,7 @@ function msToTime(s) {
 
     time = hrs + 'h ' + mins + 'm ' + secs + 's'
     if (show_ms) {
-        time += " " + + ms
+        time += " " + ms
     }
 
     return time;
@@ -68,52 +66,92 @@ function format(time) {
 }
 
 
+const toggle_add_button = document.getElementById("toggle-add-button");
+const new_contrato = document.getElementById("new-contrato");
 const new_contrato_btn = document.getElementById("new-contrato-btn");
 const new_contrato_input = document.getElementById("new-contrato-input");
+
+show_ms_btn.addEventListener("click", function (e) {
+    show_ms = !show_ms
+    save(show_ms, "show_ms");
+});
+
+new_contrato_input.addEventListener("keyup", function (e) {
+
+    const key = e.key;
+    const name = new_contrato_input.value;
+
+    save(name, "add_contrato_str");
+
+    if (key === 'Enter') {
+        new_contrato_btn.click();
+    }
+
+});
+
 
 new_contrato_btn.addEventListener('click', function () {
 
     const name = new_contrato_input.value;
     const id = data.length;
 
+    if (!name) return;
+
+    new_contrato_input.value = "";
+    remove("add_contrato_str");
+
+    for (const d of data) {
+        if (name === d.name) {
+            return;
+        }
+    }
+
     let item = {
         "id": id,
         "name": name,
-        "time": 0
+        "time": 0,
+        "description": "",
+        "show_description": false
     }
-    data.push(
-        item
-    );
+    last_data_len = data.length;
+    data.push(item);
 
     saveData();
-
     addDataHtml(item);
-
-
-
     visualize(true);
 
 });
 
-function addDataHtml(data) {
-    contratos.innerHTML += `<div class="contrato" id='i${data.id}'>
+function addDataHtml(item) {
+
+    if (data.length === 1) {
+        contratos.innerHTML = "";
+    }
+
+    contratos.innerHTML += `<div class="contrato" id='i${item.id}'>
         <div class="row mb-1">
             <div class="col-3 d-flex">
-                <div class="m-0 kill w-33">
+                <div class="m-0 kill w-25">
                     <i class="bi bi-x-lg"></i>
                 </div>
-                <div class="m-0 reload w-33">
+                <div class="m-0 text w-25">
+                <i class="bi bi-card-text"></i>
+                </div>
+                <div class="m-0 reload w-25">
                     <i class="bi bi-arrow-clockwise"></i>
                 </div>
-                <div class="m-0 button w-33">
+                <div class="m-0 button w-25">
                     <i class="bi bi-play-circle-fill"></i>
                 </div>
             </div>
             <div class="col-5">
-                <p class="m-0">${data.name}</p>
+                <p class="m-0">${item.name}</p>
             </div>
             <div class="col-4 timer">
                 0h 0m 0s
+            </div>
+            <div class="col-12 textd ${(item.show_description) ? '' : 'd-none'}">
+                <textarea class="w-100 textarea form-control">${item.description}</textarea>
             </div>
         </div>
     </div>`;
@@ -122,8 +160,34 @@ function addDataHtml(data) {
 }
 
 
+toggle_add_button.addEventListener("click", function () {
+
+    show_add = !show_add;
+    save(show_add, "show_add");
+
+    if (show_add) {
+        new_contrato.classList.remove("d-none");
+        toggle_add_button.innerText = "-";
+    } else {
+        new_contrato.classList.add("d-none");
+        toggle_add_button.innerText = "+";
+    }
+
+})
 
 // debugger
+let ls_show_ms = localStorage.getItem("show_ms");
+if (ls_show_ms !== null) {
+    show_ms = ls_show_ms === 'true';
+}
+let ls_show_e = localStorage.getItem("show_e");
+if (ls_show_e !== null) {
+    show_e = ls_show_e === 'true';
+}
+let ls_add_contrato_str = localStorage.getItem("add_contrato_str");
+if (ls_add_contrato_str !== null) {
+    new_contrato_input.value = ls_add_contrato_str;
+}
 times = localStorage.getItem("data");
 if (times) {
     data = JSON.parse(
@@ -132,7 +196,31 @@ if (times) {
     for (const d of data) {
         addDataHtml(d);
     }
+
+    if (data.length === 0) {
+        contratos.innerHTML = "<h3 class='fs-6'>Ningun contrato dado de alta.</h3>";
+        save(true, "show_add");
+    }
+
+    // visualize(true);
+}
+
+var last_data_len = data.length;
+initChar(data);
+
+if (times) {
     visualize(true);
+}
+
+
+
+let ls_show_add = localStorage.getItem("show_add");
+if (ls_show_add) {
+    show_add = ls_show_add === 'true';
+    if (show_add) {
+        new_contrato.classList.remove("d-none");
+        toggle_add_button.innerText = "-";
+    }
 }
 
 let ls_start_time = localStorage.getItem("start_time");
@@ -144,6 +232,7 @@ if (ls_start_time && ls_selected && ls_selected != 'undefined') {
     start_time = parseInt(ls_start_time);
 
 
+    console.log(selected);
     const icon = document.getElementsByClassName("button")[selected];
     icon.innerHTML = `<i class="bi bi-stop-circle-fill"></i>`;
 }
@@ -156,6 +245,14 @@ function visualize(skip_counting) {
         }
     }
 
+    var ndata = [];
+    for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        const nitem = {};
+        Object.assign(nitem,item);
+        ndata.push(nitem);
+    }
+
     for (const item of data) {
 
         let time = item.time;
@@ -163,6 +260,8 @@ function visualize(skip_counting) {
 
         if (selected === id) {
             time += Date.now() - start_time;
+            // console.log(ndata);
+            ndata[id].time = time
         }
 
         time = format(time);
@@ -173,6 +272,9 @@ function visualize(skip_counting) {
 
         timer.innerText = time;
     }
+
+    // console.log(ndata);
+    updateChart(ndata);
 
 }
 
@@ -221,10 +323,31 @@ function paddy(num, padlen, padchar) {
     return (pad + num).slice(-pad.length);
 }
 
-// showms.addEventListener('click', function () {
-//     show_ms = !show_ms;
-// });
+const estatistics_container = document.getElementById("contratos-container");
+const contratos_container = document.getElementById("estatistics-container");
 
+const toggle_e_button = document.getElementById("toggle-e-button");
+toggle_e_button.addEventListener('click', function () {
+    show_e = !show_e;
+    save(show_e, "show_e");
+
+    if (show_e) {
+        estatistics_container.classList.add("d-none");
+        contratos_container.classList.remove("d-none");
+    } else {
+        estatistics_container.classList.remove("d-none");
+        contratos_container.classList.add("d-none");
+    }
+
+});
+
+if (show_e) {
+    estatistics_container.classList.add("d-none");
+    contratos_container.classList.remove("d-none");
+} else {
+    estatistics_container.classList.remove("d-none");
+    contratos_container.classList.add("d-none");
+}
 
 
 function html(items, xhtml) {
@@ -246,6 +369,50 @@ function addListeners() {
     const buttons = document.getElementsByClassName("button");
     const reloads = document.getElementsByClassName("reload");
     const kills = document.getElementsByClassName("kill");
+    const texts = document.getElementsByClassName("text");
+    const textareas = document.getElementsByClassName("textarea");
+
+    for (const textarea of textareas) {
+
+        textarea.addEventListener('keyup', function (e) {
+            const text = this.value;
+            const parent = this.parentElement.parentElement.parentElement;
+            const id = parseInt(
+                parent.id.substring(1)
+            );
+
+            data[id].description = text;
+
+            saveData();
+
+        });
+    }
+
+    for (const button of texts) {
+
+        button.addEventListener('click', function () {
+
+            const element = this.parentElement.parentElement.parentElement;
+            const textarea = element.getElementsByClassName("textd")[0];
+
+            const id = parseInt(
+                element.id.substring(1)
+            );
+
+            const item = data[id];
+            item.show_description = !item.show_description;
+
+            if (item.show_description) {
+                textarea.classList.remove("d-none");
+            } else {
+                textarea.classList.add("d-none");
+            }
+
+            saveData();
+
+        });
+
+    }
 
     for (const button of buttons) {
 
@@ -283,7 +450,6 @@ function addListeners() {
                 selected = id;
                 save(selected, "selected");
             }
-
 
             saveData();
             visualize(true);
@@ -328,16 +494,31 @@ function addListeners() {
                 element.id.substring(1)
             );
 
-            
+
+            if (selected === id) {
+                selected = undefined;
+                remove("selected");
+            }
+            if (selected > id) {
+                selected--;
+            }
+
+            last_data_len = data.length;
             data.splice(id, 1);
-            
-            
+
+
             let i = 0;
             for (const d of data) {
-                
                 const celement = document.getElementById("i" + d.id);
-                celement.id = "i"+i;
+                celement.id = "i" + i;
                 d.id = i++;
+            }
+
+            if (data.length === 0) {
+                if (data.length === 0) {
+                    contratos.innerHTML = "<h3 class='fs-6'>Ningun contrato dado de alta.</h3>";
+                    save(true, "show_add");
+                }
             }
 
             saveData();

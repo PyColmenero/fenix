@@ -12,55 +12,86 @@
     <link rel="stylesheet" href="style.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script> -->
+    <link rel="icon" href="/fenix.png">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
 
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
     <main class="position-relative bg-dark">
 
-        <div 
-            class="position-absolute w-100 h-100 bg-dark d-flex justify-content-center align-items-center d-none"
-            id="pesao"
-        >
+        <div class="position-absolute w-100 h-100 bg-dark d-flex justify-content-center align-items-center d-none"
+            id="pesao">
             <div class="text-center">
                 <h2 class="fs-4">¿Has ticado en Fenix?</h2>
                 <button class="btn btn-warning px-5 py-0" id="pasaosi">Sí</button>
             </div>
         </div>
 
-        <div class="container-fluid text-center p-0 pb-2">
+
+
+        <div class="container-fluid p-0">
 
             <div id="header" class="d-flex justify-content-between p-2">
-                <h1 class="fs-4 m-0">G-TRACKER</h1>
+                <div class="d-flex">
+                    <h1 class="fs-4 m-0">G-TRACKER</h1>
+                    <h3 class="ms-2">You know, <br> just in case.<span class="d-none">for slavery</span></h3>
+                </div>
+                <div class="">
+                    <button class="btn btn-light py-0" id="toggle-show-ms">ms</button>
+                    <button class="btn btn-light py-0" id="toggle-add-button">+</button>
+                    <button class="btn btn-light py-0" id="toggle-e-button">E</button>
+                </div>
             </div>
 
-            <div id="contratos" class="p-2">
+            <div id="contratos-container">
+                <div id="contratos" class="py-2 text-center">
 
-            </div>
+                </div>
 
-            <div class="">
-                <div id="new-contrato">
-                    <div class="row w-100 m-0">
-                        <div class="col-2 ps-2 pe-1 text-center">
-                            <div class="w-100">
-                                <button class="btn p-0 w-100" id="new-contrato-btn">+</button>
+                <div class="">
+                    <div id="new-contrato" class="d-none pb-2">
+                        <div class="row w-100 m-0">
+                            <div class="col-2 ps-2 pe-1 text-center">
+                                <div class="w-100">
+                                    <button class="btn p-0 w-100" id="new-contrato-btn">+</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-10 px-2">
-                            <div class="">
-                                <input type="text" class="form-control py-0" id="new-contrato-input" value="Contratacion">
+                            <div class="col-10 px-2">
+                                <div class="">
+                                    <input type="text" class="form-control py-0" id="new-contrato-input"
+                                        placeholder="Nombre del contrato...">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div id="estatistics-container" class="d-none">
+
+                <div class="ps-3 pt-3">
+                    <p>Estadísticas</p>
+                </div>
+
+                <div class="p-4">
+                    <canvas id="myChart"></canvas>
+                </div>
+
+            </div>
+
+
         </div>
 
     </main>
 
+    <script src="./Pie.js"></script>
     <script src="./app.js"></script>
 
 </body>
